@@ -18,6 +18,8 @@ export function InputBox() {
 
   const sendMessage = () => {
     insertMessage(inputText, inputPerson);
+    setInputText("")
+    setInputPerson("")
   };
 
   return (
@@ -48,4 +50,3 @@ export function InputBox() {
   );
   
 }
-

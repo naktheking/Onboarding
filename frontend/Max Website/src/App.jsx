@@ -10,8 +10,8 @@ function App() {
   const [messages, setMessages] = useState([]);
   return (
     <div>
-      <InputBox messages={messages} setMessages={setMessages} />
-      <Quotes messages={messages} />
+      <InputBox />
+      <Quotes />
     </div>
   )
 }
