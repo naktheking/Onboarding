@@ -7,7 +7,6 @@ import {Quotes} from "./elements/Quotes.jsx";
 
 
 function App() {
-  const [messages, setMessages] = useState([]);
   return (
     <div>
       <InputBox />
