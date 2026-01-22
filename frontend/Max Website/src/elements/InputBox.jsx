@@ -3,7 +3,7 @@ import { useState } from 'react'
 export function InputBox() {
   const [inputText, setInputText] = useState("");
   const [inputPerson, setInputPerson] = useState("");
-  const [result, setResult] = useState(null);
+
 
   const insertMessage = async (message, person) => {
     const res = await fetch("http://localhost:3000/api/sendMessage", {
@@ -14,7 +14,6 @@ export function InputBox() {
 
     const data = await res.json();
     console.log("Inserted:", data);
-    setResult(data);
   };
 
   const sendMessage = () => {
@@ -23,11 +22,13 @@ export function InputBox() {
 
   return (
     <>
-      <h1>hello</h1>
+      <h1>You just got clocked</h1>
+      <h4>Type the quote and the person that said it </h4>
+
       <input 
         id="text_button"
         type="text" 
-        placeholder="Enter your quote here"
+        placeholder="Quote..."
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
       />
@@ -35,14 +36,13 @@ export function InputBox() {
       <input 
         id="person_button"
         type="text" 
-        placeholder="Enter your Person here"
+        placeholder="Person..."
         value={inputPerson}
         onChange={(e) => setInputPerson(e.target.value)}
       />
   
-      <br></br>
 
-      <button onClick={sendMessage}> Hi I'm a button </button>
+      <button onClick={sendMessage}> Submit </button>
     </>
     //Last line is probably deciphering JSON data into normal messages
   );

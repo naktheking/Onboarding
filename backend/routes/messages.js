@@ -5,16 +5,26 @@ const router = express.Router();
 
 router.post("/sendMessage", async (req, res) => {
   try {
-    console.log("made it");
     const { message, person } = req.body;
-    console.log("made it 2", message, person);
     const doc = await Message.create({ message, person });
-    console.log("made it 3");
   
     res.json(doc);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.get("/getMessage", async (req, res) => {
+  try {
+    const messages = await Message.find().sort({ createdAt: -1 });
+    //this gets all the messages but newest comes first
+    // const messages = await Message.find();
+    //this gets all the messages
+    res.json(messages);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 export default router;
