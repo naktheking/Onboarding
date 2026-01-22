@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import testRoutes from "./routes/testRoutes.js";
+import messageRoutes from "./routes/messages.js";
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 const PORT = 3000;
 
 //Routes_____________________
-app.use("/api", testRoutes);
+app.use("/api", messageRoutes);
 
 app.get('/', async (req, res) => {
   console.log("Good Job");
