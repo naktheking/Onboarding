@@ -6,11 +6,6 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
 
-  fetch("/api/health")
-    .then(r => r.json())
-    .then(console.log);
-
-
   return (
     <>
       <div>
