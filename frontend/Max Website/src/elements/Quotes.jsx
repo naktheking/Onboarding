@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function Quotes() {
     const [messages, setMessages] = useState([]);
@@ -16,13 +16,16 @@ export function Quotes() {
 
   return (
     <div>
-      <h1>Quotes</h1>
-
+      <div>
+        <h2>Past Quotes</h2> 
+        <p> <i>Quote Count: {messages.length}</i></p>
+      </div>
       {messages.map((msg) => (
         <div key={msg._id}>
-          <p><b>{msg.person}</b>: {msg.message}</p>
+          <p>{msg.message} - <b>{msg.person}</b></p>
         </div>
       ))}
+      
     </div>
   );
   

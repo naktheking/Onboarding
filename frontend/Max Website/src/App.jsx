@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import './App.css'
 import {InputBox} from "./elements/InputBox.jsx";
-// import {InputBox} from "./elements/Quotes.jsx";
+import {Quotes} from "./elements/Quotes.jsx";
 
 
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [messages, setMessages] = useState([]);
   return (
     <div>
-      <InputBox />
+      <InputBox messages={messages} setMessages={setMessages} />
+      <Quotes messages={messages} />
     </div>
   )
 }
