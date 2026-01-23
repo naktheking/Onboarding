@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
 
-export function Quotes() {
-    const [messages, setMessages] = useState([]);
+export function Quotes( { messages } ) {
+    // const [messages, setMessages] = useState([]);
 
-    const getMessage = async () => {
-        const res = await fetch("http://localhost:3000/api/getMessage");
-        const data = await res.json();
-        setMessages(data);
-    };
+    // const getMessage = async () => {
+    //     const res = await fetch("http://localhost:3000/api/getMessage");
+    //     const data = await res.json();
+    //     setMessages(data);
+    // };
 
-    useEffect(() => {
-        getMessage();
-    }, []);
-    //runs this function when it renders and never again
+    // useEffect(() => {
+    //     getMessage();
+    // }, []);
+    // runs this function when it renders and never again
 
   return (
     <div>
