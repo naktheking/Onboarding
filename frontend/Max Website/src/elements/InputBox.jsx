@@ -8,11 +8,16 @@ export function InputBox( {setMessages} ) {
 
 
   const insertMessage = async (message, person) => {
-    const res = await fetch("http://localhost:3000/api/sendMessage", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message, person}),
+    const res = await fetch("/api/sendMessage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message, person}),
   });
+  
+  if (!res.ok) {
+    const text = await res.text(); // <-- this will reveal the real error
+    throw new Error(`HTTP ${res.status}: ${text}`);
+  }
 
     const data = await res.json();
     console.log("Inserted:", data);
@@ -20,27 +25,33 @@ export function InputBox( {setMessages} ) {
 
   const sendMessage = async () => {
     if (inputText.trim() === "") return;
+    
     const personToSend = inputPerson.trim() === "" ? "Unknown" : inputPerson;
     
     // show clock
     setShowClock(true);
     // hide it after animation finishes (match CSS duration)
     window.setTimeout(() => setShowClock(false), 700);
+
+  const tempId = crypto.randomUUID();
+  setMessages((prev) => [
+    { _id: tempId, message: inputText, person: personToSend, createdAt: new Date().toISOString() },
+    ...prev,
+  ]);
+
    
-    if (setMessages) {
-      const temp = {
-        _id: crypto.randomUUID(),
-        message: inputText,
-        person: personToSend,
-        createdAt: new Date().toISOString(),
-      };
-      setMessages((prev) => [temp, ...prev]);
+    try {
+    const saved = await insertMessage(inputText, personToSend);
+    // replace temp item with real saved doc (optional but nice)
+    setMessages((prev) => [saved, ...prev.filter((m) => m._id !== tempId)]);
+    setInputText("");
+    setInputPerson("");
+  } catch (err) {
+      console.error(err);
+      // rollback optimistic update if it failed
+      setMessages((prev) => prev.filter((m) => m._id !== tempId));
+      alert(err.message);
     }
-
-    await insertMessage(inputText, personToSend);
-
-    setInputText("")
-    setInputPerson("")
   };
 
   return (
